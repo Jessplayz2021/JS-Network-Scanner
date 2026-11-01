@@ -38,6 +38,11 @@ def get_wifi_info(users_os):
             text=True
         )
         output = result_linux.stdout
+        for line in output.splitlines():
+            if line.startswith("*:"):
+                ssid = line.split(":")[1].strip()
+                signal_strength = f"{line.split(':')[2].strip()}%"
+
 
 
 
