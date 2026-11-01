@@ -28,7 +28,17 @@ def get_wifi_info(users_os):
             elif line.strip().startswith("Signal"):
                 signal_strength = line.split(":")[1].strip()
     elif users_os == "Darwin":
-        return None, None
+        result_Darwin = subprocess.run(
+            ["networksetup", "-getairportnetwork", "en0"],
+            capture_output=True,
+            text=True
+        )
+        output = result_Darwin.stdout
+        for line in output.splitlines():
+            if line.strip().startswith("Current Wi-Fi Network:"):
+                ssid = line.split(":",1)[1].strip()
+
+            
 
     
     elif users_os == "Linux":
