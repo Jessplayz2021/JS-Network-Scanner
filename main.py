@@ -1,9 +1,3 @@
-"""JS Spec Network Tool — a small, standard-library network diagnostic GUI.
-
-Based on Jess's original cross-platform Wi-Fi information script.
-Only test hosts and services you own or have permission to inspect.
-"""
-
 import platform
 import queue
 import socket
@@ -22,7 +16,6 @@ users_os = detect_os()
 
 
 def get_wifi_info(users_os):
-    """Return (SSID, signal) or (None, None) if unavailable."""
     ssid = None
     signal_strength = None
 
@@ -93,7 +86,6 @@ def get_wifi_info(users_os):
 
 
 def split_nmcli_fields(line):
-    """Split nmcli terse fields, accounting for escaped colons and backslashes."""
     fields, current, escaped = [], [], False
     for char in line:
         if escaped:
@@ -124,7 +116,6 @@ def get_local_info():
 
 
 def parse_ports(text):
-    """Accept comma-separated TCP port numbers, maximum 20 per check."""
     raw = [piece.strip() for piece in text.split(",")]
     if not raw or any(not piece.isdecimal() for piece in raw):
         raise ValueError("Enter port numbers separated by commas (for example: 22,80,443).")
@@ -135,7 +126,6 @@ def parse_ports(text):
 
 
 def check_tcp_ports(host, ports):
-    """Attempt TCP connections; no packet crafting, network sweeping or exploits."""
     try:
         address = socket.gethostbyname(host)
     except socket.gaierror as exc:
